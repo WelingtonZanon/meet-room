@@ -16,18 +16,18 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/v1/room")
+@RequestMapping("/rooms")
 @AllArgsConstructor
 public class RoomController {
 
     private RoomService roomService;
 
-    @GetMapping("/rooms")
+    @GetMapping
     public List<Room> getAllRooms() {
         return roomService.getAllRooms();
     }
 
-    @GetMapping("/rooms/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Room> getRoomById(@PathVariable(value = "id") Long roomId)
             throws ResourceNotFoundException {
         Room room = roomService.getRoomById(roomId)
@@ -35,19 +35,19 @@ public class RoomController {
         return ResponseEntity.ok().body(room);
     }
 
-    @PostMapping("/rooms")
+    @PostMapping
     public Room createRoom(@Valid @RequestBody Room room) {
         return roomService.createRoom(room);
     }
 
-    @PutMapping("/rooms/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity <Room> updateRoom(@PathVariable(value = "id") Long roomId,
                                               @Valid @RequestBody Room roomDetails) throws ResourceNotFoundException {
         Room room =  roomService.updateRoom(roomId, roomDetails);
         return ResponseEntity.ok(room);
     }
 
-    @DeleteMapping("/rooms/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteRoom(@PathVariable(value = "id") Long roomId)
             throws ResourceNotFoundException {
         return roomService.deleteRoom(roomId);
